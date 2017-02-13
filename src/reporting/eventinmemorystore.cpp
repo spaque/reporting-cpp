@@ -13,7 +13,7 @@ bool EventInMemoryStore::write(const Event &event)
 	return true;
 }
 
-std::vector<Event> EventInMemoryStore::getAllEvents()
+std::vector<Event> EventInMemoryStore::removeAllEvents()
 {
 	std::lock_guard<std::mutex> lock(d_mutex);
 
