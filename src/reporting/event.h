@@ -11,7 +11,7 @@ namespace reporting {
 		explicit Event(
 			const std::string& device,
 			const std::string& url,
-			int timestamp)
+			unsigned timestamp)
 			: d_device(device), d_url(url), d_timestamp(timestamp) {}
 
 		const std::string& device() const { return d_device; }
@@ -22,8 +22,15 @@ namespace reporting {
 		void url(const std::string& url) { d_url = url; }
 		void url(std::string&& url) { d_url = std::move(url); }
 
-		const unsigned timestamp() const { return d_timestamp; }
+		unsigned timestamp() const { return d_timestamp; }
 		void timestamp(unsigned timestamp) { d_timestamp = timestamp; }
+
+        bool operator==(const Event& rhs) const
+        {
+            return d_device == rhs.d_device &&
+                d_url == rhs.d_url &&
+                d_timestamp == rhs.d_timestamp;
+        }
 
 	private:
 		std::string d_device;
