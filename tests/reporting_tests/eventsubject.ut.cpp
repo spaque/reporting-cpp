@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
+#include <reporting_mocks.h>
 #include <eventsubject.h>
 
 using namespace reporting;

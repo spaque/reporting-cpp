@@ -26,11 +26,12 @@ TEST_F(eventprocessor_tests, sourceExit)
     EventProcessor proc(source_sp, target_sp, filter_sp);
 
     Event evt("test", "http://test.com/", 0);
-    EXPECT_CALL(*source_p, readEvent(_)).WillOnce(DoAll(SetArgReferee<0>(evt), Return(true)));
+    EXPECT_CALL(*source_p, readEvent(_))
+        .WillOnce(DoAll(SetArgReferee<0>(evt), Return(true)))
+        .WillOnce(Return(false));
     EXPECT_CALL(*filter_p, filter(evt)).WillOnce(Return(false));
-    EXPECT_CALL(*target_p, write(evt)).WillOnce(Return(true));
+    EXPECT_CALL(*target_p, writeEvent(evt)).WillOnce(Return(true));
     EXPECT_CALL(*source_p, ack(true));
-    EXPECT_CALL(*source_p, readEvent(_)).WillOnce(Return(false));
 
     proc.start();
 }
@@ -49,7 +50,7 @@ TEST_F(eventprocessor_tests, targetExit)
     Event evt("test", "http://test.com/", 0);
     EXPECT_CALL(*source_p, readEvent(_)).WillOnce(DoAll(SetArgReferee<0>(evt), Return(true)));
     EXPECT_CALL(*filter_p, filter(evt)).WillOnce(Return(false));
-    EXPECT_CALL(*target_p, write(evt)).WillOnce(Return(false));
+    EXPECT_CALL(*target_p, writeEvent(evt)).WillOnce(Return(false));
     EXPECT_CALL(*source_p, ack(false));
 
     proc.start();
@@ -67,11 +68,12 @@ TEST_F(eventprocessor_tests, filter)
     EventProcessor proc(source_sp, target_sp, filter_sp);
 
     Event evt("test", "http://test.com/", 0);
-    EXPECT_CALL(*source_p, readEvent(_)).WillOnce(DoAll(SetArgReferee<0>(evt), Return(true)));
+    EXPECT_CALL(*source_p, readEvent(_))
+        .WillOnce(DoAll(SetArgReferee<0>(evt), Return(true)))
+        .WillOnce(Return(false));
     EXPECT_CALL(*filter_p, filter(evt)).WillOnce(Return(true));
-    EXPECT_CALL(*target_p, write(_)).Times(0);
+    EXPECT_CALL(*target_p, writeEvent(_)).Times(0);
     EXPECT_CALL(*source_p, ack(_)).Times(0);
-    EXPECT_CALL(*source_p, readEvent(_)).WillOnce(Return(false));
 
     proc.start();
 }

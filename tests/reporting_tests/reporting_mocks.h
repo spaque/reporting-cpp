@@ -39,7 +39,7 @@ class MockEventStore : public reporting::IEventStore
     public:
         virtual ~MockEventStore() {}
 
-        MOCK_METHOD1(write, bool(const reporting::Event&));
+        MOCK_METHOD1(writeEvent, bool(const reporting::Event&));
         MOCK_METHOD0(removeAllEvents, std::vector<reporting::Event>());
         MOCK_METHOD0(getNumWrittenEvents, size_t());
 };
@@ -58,7 +58,7 @@ class MockEventTarget : public reporting::IEventTarget
     public:
         virtual ~MockEventTarget() {}
 
-        MOCK_METHOD1(write, bool(const reporting::Event&));
+        MOCK_METHOD1(writeEvent, bool(const reporting::Event&));
         MOCK_METHOD0(getNumWrittenEvents, size_t());
 };
 

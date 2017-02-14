@@ -14,7 +14,7 @@ namespace reporting {
                 const IEventStorePtr& store,
                 const IEventSubjectPtr& subject,
                 int delay = 5)
-			: d_store_sp(store), d_subject_sp(subject), d_shutdown(false) {}
+			: d_store_sp(store), d_subject_sp(subject), d_delay(delay), d_shutdown(false) {}
 		~EventStoreProcessor() = default;
 
 		void start();

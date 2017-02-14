@@ -3,19 +3,10 @@
 
 #include <thread>
 
-#include <eventinmemorystore.ut.cpp>
+#include <eventinmemorystore.h>
 
 using namespace reporting;
 using namespace testing;
-
-namespace {
-
-void checkWrittenEvents(const EventInMemoryStore& store, size_t expected)
-{
-    ASSERT_EQ(expected, store.getNumWrittenEvents());
-}
-
-}
 
 class eventinmemorystore_tests : public ::testing::Test
 {
@@ -23,7 +14,7 @@ class eventinmemorystore_tests : public ::testing::Test
         eventinmemorystore_tests() {}
 };
 
-TEST_F(eventinmemorystor_tests, breathing)
+TEST_F(eventinmemorystore_tests, breathing)
 {
     EventInMemoryStore store;
 
@@ -31,14 +22,17 @@ TEST_F(eventinmemorystor_tests, breathing)
     ASSERT_TRUE(store.removeAllEvents().empty());
 }
 
-TEST_F(eventinmemorystor_tests, write)
+TEST_F(eventinmemorystore_tests, write)
 {
     EventInMemoryStore store;
 
     Event evt("test", "https://test.com", 0);
-    store.write(evt);
+    store.writeEvent(evt);
 
-    std::thread t1(checkWrittenEvents, std::cref(store), 1);
+    std::thread t1([&store]() {
+        ASSERT_EQ(1, store.getNumWrittenEvents());
+    });
+
     ASSERT_EQ(1, store.getNumWrittenEvents());
     t1.join();
 
