@@ -12,7 +12,7 @@ namespace reporting {
 		IEventTarget() = default;
 		virtual ~IEventTarget() = default;
 
-		virtual bool write(const Event&) = 0;
+		virtual bool writeEvent(const Event&) = 0;
 
 		virtual size_t getNumWrittenEvents() = 0;
 	};

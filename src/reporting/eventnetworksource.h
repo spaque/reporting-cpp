@@ -6,20 +6,22 @@
 
 namespace reporting {
 
-	typedef std::shared_ptr<boost::asio::ip::tcp::iostream> TcpIostreamPtr;
+	typedef std::shared_ptr<boost::asio::ip::tcp::socket> TcpSocketPtr;
 
 	class EventNetworkSource : public IEventSource
 	{
 	public:
-		explicit EventNetworkSource(const TcpIostreamPtr& stream, const IEventTargetPtr& target)
-			: d_stream_sp(stream), d_target_sp(target) {}
+		explicit EventNetworkSource(const TcpSocketPtr& socket, const IEventTargetPtr& target)
+			: d_socket_sp(socket), d_target_sp(target) {}
 		virtual ~EventNetworkSource();
 
 		bool readEvent(Event&) override;
 		void ack(bool) override;
 
 	private:
-		TcpIostreamPtr d_stream_sp;
+        bool parseEvent(char* data, Event& event);
+
+        TcpSocketPtr d_socket_sp;
 		IEventTargetPtr d_target_sp;
 	};
 

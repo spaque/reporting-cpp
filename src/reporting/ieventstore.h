@@ -14,7 +14,7 @@ namespace reporting {
 		IEventStore() = default;
 		virtual ~IEventStore() = default;
 
-		virtual bool write(const Event&) = 0;
+		virtual bool writeEvent(const Event&) = 0;
 
 		virtual std::vector<Event> removeAllEvents() = 0;
 
