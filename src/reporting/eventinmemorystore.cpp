@@ -2,7 +2,7 @@
 
 namespace reporting {
 
-bool EventInMemoryStore::write(const Event &event)
+bool EventInMemoryStore::writeEvent(const Event &event)
 {
 	std::lock_guard<std::mutex> lock(d_mutex);
 
