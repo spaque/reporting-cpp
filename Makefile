@@ -13,6 +13,10 @@ ifdef BOOST_ROOT
 CMAKE_ARGS += -DBOOST_ROOT=$(BOOST_ROOT)
 endif
 
+ifdef Boost_NO_BOOST_CMAKE
+CMAKE_ARGS += -DBoost_NO_BOOST_CMAKE=$(Boost_NO_BOOST_CMAKE)
+endif
+
 CURR_DIR=$(shell pwd)
 
 BINARY_SUFFIX=
