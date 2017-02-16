@@ -6,12 +6,14 @@ add_executable( tests
   eventsubject.ut.cpp
 )
 
+target_include_directories( tests SYSTEM PRIVATE ${GTEST_DIR}/googletest/include ${GTEST_DIR}/googlemock/include)
 target_include_directories( tests PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
 
 target_link_libraries( tests
-LINK_PUBLIC reporting
-#GTest::GTest
-#GTest::Main
+  reporting
+  gtest
+  gtest_main
+  gmock
 )
 
 add_test( eventinmemorystore eventinmemorystore_test )
