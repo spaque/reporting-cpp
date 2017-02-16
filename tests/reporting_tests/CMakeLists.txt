@@ -6,7 +6,6 @@ add_executable( tests
   eventsubject.ut.cpp
 )
 
-target_include_directories( tests SYSTEM PRIVATE ${GTEST_DIR}/googletest/include ${GTEST_DIR}/googlemock/include)
 target_include_directories( tests PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
 
 target_link_libraries( tests
@@ -16,9 +15,9 @@ target_link_libraries( tests
   gmock
 )
 
-add_test( eventinmemorystore eventinmemorystore_test )
-add_test( eventprocessor eventprocessor_test )
-add_test( eventquestionablefilter eventquestionablefilter_test )
-add_test( eventstoreprocessor eventstoreprocessor_test )
-add_test( eventsubject eventsubject_test )
+add_test( NAME eventinmemorystore COMMAND tests --gtest_filter=eventinmemorystore* )
+add_test( NAME eventprocessor COMMAND tests --gtest_filter=eventprocessor* )
+add_test( NAME eventquestionablefilter COMMAND tests --gtest_filter=eventquestionablefilter* )
+add_test( NAME eventstoreprocessor COMMAND tests --gtest_filter=eventstoreprocessor* )
+add_test( NAME eventsubject COMMAND tests --gtest_filter=eventsubject* )
 

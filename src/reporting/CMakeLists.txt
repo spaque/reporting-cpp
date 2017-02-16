@@ -11,5 +11,6 @@ add_library( reporting
   eventsubject.cpp
 )
 
-target_link_libraries( reporting ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_SYSTEM_LIBRARY} )
+target_link_libraries( reporting ${Boost_LIBRARIES} )
 target_include_directories( reporting PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
+
