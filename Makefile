@@ -13,7 +13,7 @@ ifdef BOOST_ROOT
 CMAKE_ARGS += -DBOOST_ROOT=$(BOOST_ROOT)
 endif
 
-CURR_DIR=$(shell pwd -P)
+CURR_DIR=$(shell pwd)
 
 BINARY_SUFFIX=
 ifeq ($(OS),Windows_NT)
