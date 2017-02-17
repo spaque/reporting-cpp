@@ -1,6 +1,7 @@
 # reporting-cpp
 Client-Server Reporting System
 
+[![Build Status](https://travis-ci.org/spaque/reporting-cpp.svg?branch=master)](https://travis-ci.org/spaque/reporting-cpp)
 [![Build status](https://ci.appveyor.com/api/projects/status/q6pdrrkc7y8k2pwh?svg=true)](https://ci.appveyor.com/project/spaque/reporting-cpp)
 
 
