@@ -9,10 +9,10 @@ namespace reporting {
 	class IEventTarget
 	{
 	public:
-		IEventTarget() = default;
-		virtual ~IEventTarget() = default;
+        IEventTarget() {}
+        virtual ~IEventTarget() {}
 
-		virtual bool writeEvent(const Event&) = 0;
+		virtual bool writeEvent(const Event& event) = 0;
 
 		virtual size_t getNumWrittenEvents() = 0;
 	};

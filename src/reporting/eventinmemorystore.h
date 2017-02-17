@@ -10,9 +10,9 @@ namespace reporting {
 	{
 	public:
 		EventInMemoryStore() : d_numWrittenEvents(0) {};
-		virtual ~EventInMemoryStore() = default;
+        virtual ~EventInMemoryStore() {}
 
-		bool writeEvent(const Event&) override;
+		bool writeEvent(const Event& event) override;
 		std::vector<Event> removeAllEvents() override;
 		size_t getNumWrittenEvents() override;
 

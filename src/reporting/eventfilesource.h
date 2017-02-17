@@ -13,12 +13,13 @@ namespace reporting {
 		virtual ~EventFileSource();
 
 		bool readEvent(Event& event) override;
-		void ack(bool success) override;
+        bool ack(bool success) override { return true; }
+        bool isValid() const override { return d_fs.good(); }
 
 	private:
 		bool parseLine(const std::string& pattern, std::string& value);
 
-		std::fstream d_fs;
+		std::ifstream d_fs;
 	};
 
 }

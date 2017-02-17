@@ -33,6 +33,7 @@ TEST_F(eventstoreprocessor_tests, breathing)
     EXPECT_CALL(*subject_p, notify(evt));
 
     std::thread t1(&EventStoreProcessor::start, &proc);
+    t1.detach();
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
     proc.shutdown();

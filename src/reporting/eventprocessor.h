@@ -16,7 +16,7 @@ namespace reporting {
 			: d_eventSource_sp(source)
 			, d_eventTarget_sp(target)
 			, d_eventFilter_sp(filter) {}
-		~EventProcessor() = default;
+        ~EventProcessor() {}
 
 		void start();
 

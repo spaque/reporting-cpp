@@ -11,8 +11,8 @@ namespace reporting {
 	class IEventStore : public IEventTarget
 	{
 	public:
-		IEventStore() = default;
-		virtual ~IEventStore() = default;
+        IEventStore() {}
+        virtual ~IEventStore() {}
 
 		virtual bool writeEvent(const Event&) = 0;
 

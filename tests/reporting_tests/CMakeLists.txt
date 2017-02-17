@@ -1,4 +1,5 @@
 add_executable( tests
+  eventfilesource.ut.cpp
   eventinmemorystore.ut.cpp
   eventprocessor.ut.cpp
   eventquestionablefilter.ut.cpp
@@ -15,6 +16,7 @@ target_link_libraries( tests
   gmock
 )
 
+add_test( NAME eventfilesource COMMAND tests --gtest_filter=eventfilesource* )
 add_test( NAME eventinmemorystore COMMAND tests --gtest_filter=eventinmemorystore* )
 add_test( NAME eventprocessor COMMAND tests --gtest_filter=eventprocessor* )
 add_test( NAME eventquestionablefilter COMMAND tests --gtest_filter=eventquestionablefilter* )

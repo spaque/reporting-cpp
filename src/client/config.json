@@ -1,0 +1,16 @@
+{
+	"network": {
+		"server_ip": "127.0.0.1",
+		"port": 42422
+	},
+	"questionable_words":
+	[ 
+		"porn", "xxx", "sex", "bieber"
+	],
+	"client": {
+		"input_filename": "sample.log"
+	},
+	"server": {
+		"output_filename": "output.log"
+	}
+}

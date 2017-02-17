@@ -31,7 +31,8 @@ class MockEventSource : public reporting::IEventSource
         virtual ~MockEventSource() {}
 
         MOCK_METHOD1(readEvent, bool(reporting::Event&));
-        MOCK_METHOD1(ack, void(bool));
+        MOCK_METHOD1(ack, bool(bool));
+        MOCK_CONST_METHOD0(isValid, bool());
 };
 
 class MockEventStore : public reporting::IEventStore

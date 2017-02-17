@@ -10,8 +10,8 @@ namespace reporting {
 	class EventSubject : public IEventSubject
 	{
 	public:
-		EventSubject() = default;
-		virtual ~EventSubject() = default;
+        EventSubject() {}
+        virtual ~EventSubject() {}
 
 		void registerObserver(const IEventObserverPtr&) override;
 		void notify(const Event&) override;

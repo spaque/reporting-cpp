@@ -7,15 +7,10 @@ namespace reporting {
 
 EventFileSource::EventFileSource(const std::string& filename)
 {
-	try {
-		d_fs.open(filename, std::fstream::in);
-        if (!d_fs.is_open()) {
-            std::cerr << "Failed to open " << filename << std::endl;
-        }
-	}
-	catch (const std::exception& ex) {
-		std::cerr << "Failed to open " << filename << ": " << ex.what() << std::endl;
-	}
+	d_fs.open(filename, std::ifstream::in);
+    if (!d_fs.is_open()) {
+        std::cerr << "Failed to open " << filename << std::endl;
+    }
 }
 
 EventFileSource::~EventFileSource()
@@ -29,17 +24,17 @@ bool EventFileSource::readEvent(Event& event)
 {
 	try {
 		std::string device;
-		if (!parseLine(R"(^device:\s*(.+)$)", device)) {
+		if (!parseLine("^device:\\s*(.+)$", device)) {
 			return false;
 		}
 
 		std::string url;
-		if (!parseLine(R"(^url:\s*(.+)$)", url)) {
+		if (!parseLine("^url:\\s*(.+)$", url)) {
 			return false;
 		}
 
 		std::string timestamp;
-		if (!parseLine(R"(^timestamp:\s*(\d+)$)", timestamp)) {
+		if (!parseLine("^timestamp:\\s*(\\d+)$", timestamp)) {
 			return false;
 		}
 
@@ -55,10 +50,6 @@ bool EventFileSource::readEvent(Event& event)
 	}
 
 	return false;
-}
-
-void EventFileSource::ack(bool)
-{
 }
 
 bool EventFileSource::parseLine(const std::string & pattern, std::string& value)

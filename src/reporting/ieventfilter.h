@@ -9,10 +9,10 @@ namespace reporting {
 	class IEventFilter
 	{
 	public:
-		IEventFilter() = default;
-		virtual ~IEventFilter() = default;
+        IEventFilter() {}
+        virtual ~IEventFilter() {}
 
-		virtual bool filter(const Event&) = 0;
+		virtual bool filter(const Event& event) = 0;
 	};
 
 	typedef std::shared_ptr<IEventFilter> IEventFilterPtr;
