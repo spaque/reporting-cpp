@@ -24,9 +24,6 @@ elseif( CMAKE_CXX_COMPILER_ID STREQUAL "Clang" )
 elseif( CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" )
   if( CMAKE_CXX_COMPILER_VERSION VERSION_LESS 18.0 )
     message( FATAL_ERROR "MSVC version must be at least 18.0!" )
-  else()
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MD")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MDd")
   endif()
 endif()
 
@@ -43,11 +40,11 @@ include_directories(
   ${gtest_SOURCE_DIR}
 )
 
-set( Boost_USE_STATIC_LIBS ON )
-set( Boost_USE_MULTITHREADED ON )
-set( Boost_USE_STATIC_RUNTIME ON )
 find_package( Boost REQUIRED COMPONENTS system )
 include_directories( ${Boost_INCLUDE_DIRS} )
+if( CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" )
+  link_directories( ${Boost_LIBRARY_DIRS} )
+endif()
 
 message( STATUS "Boost_VERSION: " ${Boost_VERSION} )
 
