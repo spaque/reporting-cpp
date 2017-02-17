@@ -7,7 +7,7 @@ namespace reporting {
 	class Event
 	{
 	public:
-		Event() = default;
+        Event() {}
 		explicit Event(
 			const std::string& device,
 			const std::string& url,

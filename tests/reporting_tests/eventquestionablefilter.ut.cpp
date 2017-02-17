@@ -12,9 +12,16 @@ class eventquestionable_tests : public ::testing::Test
         eventquestionable_tests() {}
 };
 
+TEST_F(eventquestionable_tests, empty)
+{
+    EventQuestionableFilter filter(std::vector<std::string>({}));
+    Event evt("test", "http://test.com/test", 0);
+    ASSERT_FALSE(filter.filter(evt));
+}
+
 TEST_F(eventquestionable_tests, positive)
 {
-    EventQuestionableFilter filter;
+    EventQuestionableFilter filter(std::vector<std::string>({ "xxx" }));
     Event evt("test", "http://test.com/test", 0);
     ASSERT_TRUE(filter.filter(evt));
 
@@ -24,7 +31,7 @@ TEST_F(eventquestionable_tests, positive)
 
 TEST_F(eventquestionable_tests, negative)
 {
-    EventQuestionableFilter filter;
+    EventQuestionableFilter filter(std::vector<std::string>({ "bieber", "xxx" }));
     Event evt("test", "http://test.xxx/test", 0);
     ASSERT_FALSE(filter.filter(evt));
 

@@ -4,14 +4,9 @@
 
 namespace reporting {
 
-EventFileDump::EventFileDump()
+EventFileDump::EventFileDump(const std::string& filename)
 {
-	try {
-		d_fs.open("output.txt", std::fstream::out);
-	}
-	catch (const std::exception& ex) {
-		std::cerr << "Failed to open file. " << ex.what() << std::endl;
-	}
+	d_fs.open(filename, std::ofstream::out);
 }
 
 EventFileDump::~EventFileDump()

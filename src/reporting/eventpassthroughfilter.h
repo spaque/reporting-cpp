@@ -7,8 +7,8 @@ namespace reporting {
 	class EventPassThroughFilter : public IEventFilter
 	{
 	public:
-		EventPassThroughFilter() = default;
-		virtual ~EventPassThroughFilter() = default;
+        EventPassThroughFilter() {}
+        virtual ~EventPassThroughFilter() {}
 
 		bool filter(const Event&) override { return false; }
 	};

@@ -9,11 +9,12 @@ namespace reporting {
 	class IEventSource
 	{
 	public:
-		IEventSource() = default;
-		virtual ~IEventSource() = default;
+        IEventSource() {}
+        virtual ~IEventSource() {}
 
 		virtual bool readEvent(Event&) = 0;
-		virtual void ack(bool) = 0;
+		virtual bool ack(bool) = 0;
+        virtual bool isValid() const = 0;
 	};
 
 	typedef std::shared_ptr<IEventSource> IEventSourcePtr;

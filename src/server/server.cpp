@@ -9,9 +9,10 @@
 #include <eventsubject.h>
 
 #include <boost/asio.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
 
 #include <iostream>
-#include <memory>
 #include <thread>
 
 using namespace boost::asio;
@@ -31,14 +32,29 @@ void session(
     }
 }
 
-int main()
+int main(int argc, char *argv[])
 {
+    std::string configfile("config.json");
+    if (argc > 1) {
+        configfile = argv[1];
+    }
+
+    boost::property_tree::ptree pt;
+    try {
+        boost::property_tree::json_parser::read_json(configfile, pt);
+    }
+    catch (const std::exception& ex) {
+        std::cerr << "Error parsing config file: " << ex.what() << std::endl;
+        return 1;
+    }
+
     IEventStorePtr store = std::make_shared<EventInMemoryStore>();
 	IEventTargetPtr target = store;
 	IEventFilterPtr filter = std::make_shared<EventPassThroughFilter>();
 
     IEventObserverPtr printer = std::make_shared<EventPrinter>();
-    IEventObserverPtr dump = std::make_shared<EventFileDump>();
+    IEventObserverPtr dump = std::make_shared<EventFileDump>(
+        pt.get<std::string>("server.output_filename", "output.log"));
     IEventSubjectPtr subject = std::make_shared<EventSubject>();
     subject->registerObserver(printer);
     subject->registerObserver(dump);
@@ -48,7 +64,9 @@ int main()
 
     try {
         io_service service;
-        ip::tcp::endpoint endpoint(ip::tcp::v4(), 42422);
+        ip::tcp::endpoint endpoint(
+            ip::tcp::v4(),
+            pt.get<int>("network.port", 42422));
         ip::tcp::acceptor acceptor(service, endpoint);
 
         for (;;) {

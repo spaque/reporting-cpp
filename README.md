@@ -1,14 +1,23 @@
 # reporting-cpp
 Client-Server Reporting System
 
+[![Build status](https://ci.appveyor.com/api/projects/status/q6pdrrkc7y8k2pwh?svg=true)](https://ci.appveyor.com/project/spaque/reporting-cpp)
+
+
 # Requirements
-* gcc-4.9+ on Linux/Mac.
-* Visual Studio 2013+ on Windows.
-* Boost.
+* cmake 3.1+
+* gcc-4.9+ on Linux/Mac
+* Visual Studio 2013+ on Windows
+* Boost
 
 # Building
+On Linux/Mac:
 
 	$ make build
+
+On Windows:
+
+	$ make <debugbuild|releasebuild>
 
 ## Build Variables
 You might need to define a number of variables to successfully build the project:
@@ -23,18 +32,26 @@ You might need to define a number of variables to successfully build the project
 	$ make build BOOST_ROOT=C:/boost_1_63_0
 ```
 
-Artifacts can be found in the cmake.bld subdirectory.
+Artifacts can be found in the `cmake.bld` subdirectory.
 
 # Running tests
-	$ make tests
+On Linux/Mac:
+
+	$ make ctests
+
+On Windows:
+
+	$ make <debugctests|releasectests>
 
 # Running client & server
-On different terminals run:
+On different Linux/Mac terminals run:
 
 	$ make server
-
-and
-
 	$ make client
 
-Note the input file `sample.log` needed by the client will be copied to the output directory on a successful build.
+or from Windows:
+
+	$ make <debugserver|releaseserver>
+	$ make <debugclient|releaseclient>
+
+Note the input files `sample.log` and `config.json` needed by the applications will be copied to the output directory on a successful build.

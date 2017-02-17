@@ -11,4 +11,7 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} -E copy_if_different
   ${CMAKE_CURRENT_SOURCE_DIR}/sample.log
   $<TARGET_FILE_DIR:client>
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different
+  ${CMAKE_CURRENT_SOURCE_DIR}/config.json
+  $<TARGET_FILE_DIR:client>
 )

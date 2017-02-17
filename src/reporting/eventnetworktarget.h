@@ -13,7 +13,7 @@ namespace reporting {
 		EventNetworkTarget(const TcpSocketPtr& socket) : d_socket_sp(socket) {}
 		virtual ~EventNetworkTarget();
 
-		bool writeEvent(const Event&) override;
+		bool writeEvent(const Event& event) override;
 		size_t getNumWrittenEvents() override;
 
 	private:

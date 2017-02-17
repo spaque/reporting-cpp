@@ -28,13 +28,16 @@ bool EventNetworkTarget::writeEvent(const Event& event)
     }
 
     char ack[64];
+    // Not paying the penalty of initializing the whole buffer to zero,
+    // instead append the null terminator using the number of bytes read
     size_t length = d_socket_sp->read_some(boost::asio::buffer(ack), error);
-    if (error == boost::asio::error::eof) {
-        std::cerr << "Server disconnected" << std::endl;
-        return false;
-    }
     if (error) {
-        std::cerr << "Error reading from socket: " << error.message() << std::endl;
+        if (error == boost::asio::error::eof) {
+            std::cerr << "Peer disconnected" << std::endl;
+        }
+        else {
+            std::cerr << "Error reading from socket: " << error.message() << std::endl;
+        }
         return false;
     }
     ack[length] = '\0';
@@ -69,8 +72,8 @@ bool EventNetworkTarget::parseAck(char* data, bool& success, size_t& numEvents)
     }
 
     try {
-        numEvents = std::stoi(tokens[1]);
         success = std::stoi(tokens[0]);
+        numEvents = std::stoi(tokens[1]);
     }
     catch (const std::exception& ex) {
         std::cerr << "Failed to parse data. " << ex.what() << std::endl;

@@ -9,12 +9,12 @@ namespace reporting {
 	class IEventSubject
 	{
 	public:
-		IEventSubject() = default;
-		virtual ~IEventSubject() = default;
+        IEventSubject() {}
+        virtual ~IEventSubject() {}
 
-		virtual void registerObserver(const IEventObserverPtr&) = 0;
+		virtual void registerObserver(const IEventObserverPtr& observer) = 0;
 
-		virtual void notify(const Event&) = 0;
+		virtual void notify(const Event& event) = 0;
 	};
 
 	typedef std::shared_ptr<IEventSubject> IEventSubjectPtr;

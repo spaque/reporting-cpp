@@ -6,10 +6,10 @@ namespace reporting {
 	class EventPrinter : public IEventObserver
 	{
 	public:
-		EventPrinter() = default;
-		virtual ~EventPrinter() = default;
+        EventPrinter() {}
+        virtual ~EventPrinter() {}
 
-		virtual void onEvent(const Event&) override;
+		virtual void onEvent(const Event& event) override;
 	};
 
 }

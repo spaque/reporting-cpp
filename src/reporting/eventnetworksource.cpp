@@ -8,6 +8,8 @@ namespace {
 
 const char SEPARATOR[] = "\x15";
 
+const int BUFFER_SIZE = 3072;
+
 }
 
 EventNetworkSource::~EventNetworkSource()
@@ -17,15 +19,19 @@ EventNetworkSource::~EventNetworkSource()
 
 bool EventNetworkSource::readEvent(Event& event)
 {
-    char data[2048];
+    char data[BUFFER_SIZE];
+    // Not paying the penalty of initializing the whole buffer to zero,
+    // instead append the null terminator using the number of bytes read
     boost::system::error_code error;
     size_t length = d_socket_sp->read_some(boost::asio::buffer(data), error);
-    if (error == boost::asio::error::eof) {
-        std::cerr << "Client disconnected" << std::endl;
-        return false;
-    }
     if (error) {
-        std::cerr << "Error reading from socket: " << error.message() << std::endl;
+        if (error == boost::asio::error::eof) {
+            std::cerr << "Peer disconnected" << std::endl;
+        }
+        else {
+            std::cerr << "Error reading from socket: " << error.message() << std::endl;
+        }
+        d_valid = false;
         return false;
     }
     data[length] = '\0';
@@ -33,7 +39,7 @@ bool EventNetworkSource::readEvent(Event& event)
 	return parseEvent(data, event);
 }
 
-void EventNetworkSource::ack(bool success)
+bool EventNetworkSource::ack(bool success)
 {
     std::ostringstream stream;
     stream << success << SEPARATOR << d_target_sp->getNumWrittenEvents();
@@ -42,7 +48,10 @@ void EventNetworkSource::ack(bool success)
     d_socket_sp->write_some(boost::asio::buffer(stream.str()), error);
     if (error) {
         std::cerr << "Error sending ack: " << error.message() << std::endl;
+        d_valid = false;
     }
+
+    return d_valid;
 }
 
 bool EventNetworkSource::parseEvent(char* data, Event& event)

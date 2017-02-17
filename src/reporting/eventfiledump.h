@@ -8,13 +8,13 @@ namespace reporting {
 	class EventFileDump : public IEventObserver
 	{
 	public:
-		EventFileDump();
+		EventFileDump(const std::string& filename);
 		virtual ~EventFileDump();
 
-		virtual void onEvent(const Event&) override;
+		virtual void onEvent(const Event& event) override;
 
 	private:
-		std::fstream d_fs;
+		std::ofstream d_fs;
 	};
 
 }
