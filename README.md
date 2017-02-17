@@ -8,7 +8,7 @@ Client-Server Reporting System
 # Requirements
 * cmake 3.1+
 * gcc-4.9+ on Linux/Mac
-* Visual Studio 2013+ on Windows
+* Visual Studio 2012+ on Windows
 * Boost
 
 # Building
